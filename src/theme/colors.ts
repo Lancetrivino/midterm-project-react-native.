@@ -1,0 +1,41 @@
+export const lightTheme = {
+  background: '#FAFAFA',
+  surface: '#F5F5F7',
+  card: '#FFFFFF',
+  text: '#1A1A1A',
+  textSecondary: '#666666',
+  primary: '#007AFF',
+  primaryDark: '#0051D5',
+  primaryLight: '#E3F2FD',
+  success: '#30B0C0',
+  successLight: '#E0F7FA',
+  danger: '#FF3B30',
+  dangerLight: '#FFEBEE',
+  border: '#E8E8EA',
+  shadow: '#000000',
+  placeholder: '#C7C7CC',
+  inputBackground: '#F2F2F7',
+  overlay: 'rgba(0, 0, 0, 0.5)',
+};
+
+export const darkTheme = {
+  background: '#0A0A0A',
+  surface: '#1A1A1A',
+  card: '#252529',
+  text: '#FFFFFF',
+  textSecondary: '#A0A0A5',
+  primary: '#0A84FF',
+  primaryDark: '#0066CC',
+  primaryLight: '#1E3A5F',
+  success: '#30B0C0',
+  successLight: '#0D2E35',
+  danger: '#FF453A',
+  dangerLight: '#3C1515',
+  border: '#3A3A3E',
+  shadow: '#000000',
+  placeholder: '#6C6C70',
+  inputBackground: '#1A1A1E',
+  overlay: 'rgba(0, 0, 0, 0.7)',
+};
+
+export type Theme = typeof lightTheme;
