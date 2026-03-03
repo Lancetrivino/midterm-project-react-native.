@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -140,6 +140,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
   const successScaleAnim = useRef(new Animated.Value(0.5)).current;
   const successOpacityAnim = useRef(new Animated.Value(0)).current;
+  const autoDismissTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetForm = () => {
     setName('');
@@ -189,9 +190,26 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
         useNativeDriver: true,
       }),
     ]).start();
+
+    // Auto-close after 2.5 seconds
+    autoDismissTimeoutRef.current = setTimeout(() => {
+      handleSuccessClose();
+    }, 2500);
   };
 
+  // Cleanup timeout on unmount or when modal closes
+  useEffect(() => {
+    return () => {
+      if (autoDismissTimeoutRef.current) {
+        clearTimeout(autoDismissTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleClose = () => {
+    if (autoDismissTimeoutRef.current) {
+      clearTimeout(autoDismissTimeoutRef.current);
+    }
     resetForm();
     onClose();
   };

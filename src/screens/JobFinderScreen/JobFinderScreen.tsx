@@ -1,3 +1,4 @@
+// updated JobFinderScreen
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   View,
@@ -8,6 +9,7 @@ import {
   RefreshControl,
   Animated,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useJobs } from '../../context/JobContext';
@@ -82,7 +84,7 @@ export const JobFinderScreen: React.FC = () => {
   };
 
   const Header = () => (
-    <View style={styles.header}>
+    <View style={[styles.header, { backgroundColor: theme.surface }]}>
       <View>
         <Text style={styles.headerEyebrow}>Welcome To</Text>
         <Text style={styles.headerTitle}>Job Finder</Text>
@@ -137,13 +139,7 @@ export const JobFinderScreen: React.FC = () => {
           <Text style={styles.statNumber}>{filteredJobs.length}</Text>
           <Text style={styles.statLabel}>Showing</Text>
         </View>
-        <View style={styles.statDivider} />
-        <View style={styles.statItem}>
-          <Text style={[styles.statNumber, { color: (theme as any).primary }]}>
-            {jobs.filter((j: Job) => (j as any).type?.toLowerCase().includes('remote')).length}
-          </Text>
-          <Text style={styles.statLabel}>Remote</Text>
-        </View>
+        {/* Remote stat removed - not provided by API */}
       </View>
 
       <Animated.View

@@ -52,7 +52,10 @@ export const fetchJobs = async (): Promise<Job[]> => {
       id: uuid.v4() as string,
       title: job.title,
       company: job.companyName,
-      location: job.locations[0] || 'Remote',
+      // Location: use first provided location or leave unspecified
+      location: job.locations && job.locations.length > 0 ? job.locations[0] : 'Not specified',
+      // Work model: prefer explicit field from API, otherwise mark as not specified
+      workModel: job.workModel || 'Not specified',
       salary: job.minSalary && job.maxSalary 
         ? `${job.minSalary}-${job.maxSalary} ${job.currency}` 
         : 'Not specified',

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, TextInput, TouchableOpacity, Animated, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Animated, Text, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { createStyles } from './SearchBar.styles';
@@ -11,7 +11,7 @@ interface SearchBarProps {
   resultCount?: number;
 }
 
-const FILTER_CHIPS = ['All', 'Remote', 'Full-Time', 'Part-Time', 'Contract'];
+const FILTER_CHIPS = ['All', 'Full-Time', 'Part-Time', 'Contract', 'Internship'];
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   value,
@@ -95,7 +95,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </Animated.View>
 
       {/* Filter Chips */}
-      <View style={styles.chipsRow}>
+      <ScrollView
+        style={styles.chipsRow}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 4 }}
+      >
         {FILTER_CHIPS.map((chip) => {
           const isActive = activeFilter === chip;
           return (
@@ -118,7 +123,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             </TouchableOpacity>
           );
         })}
-      </View>
+      </ScrollView>
 
       {/* Result count */}
       {resultCount !== undefined && value.length > 0 && (

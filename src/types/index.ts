@@ -3,6 +3,7 @@ export interface Job {
   title: string;
   company: string;
   location?: string;
+  workModel?: string;
   salary?: string;
   description?: string;
   requirements?: string[];
@@ -36,4 +37,5 @@ export interface ValidationResult {
 export type RootStackParamList = {
   JobFinder: undefined;
   SavedJobs: undefined;
+  AppliedJobs: undefined;
 };

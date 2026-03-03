@@ -7,7 +7,6 @@ import {
   Animated,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// @ts-ignore - types for expo-haptics may not be installed
 import * as Haptics from 'expo-haptics';
 import { useTheme } from '../../context/ThemeContext';
 import { useJobs } from '../../context/JobContext';
@@ -71,7 +70,8 @@ export const JobCard: React.FC<JobCardProps> = ({
     const t = type.toLowerCase();
     if (t.includes('full')) return '#10B981';
     if (t.includes('part')) return '#F59E0B';
-    // contract and remote are not used by API — fall back to theme
+    if (t.includes('contract')) return '#8B5CF6';
+    if (t.includes('remote')) return '#3B82F6';
     return theme.primary;
   };
 
@@ -79,7 +79,7 @@ export const JobCard: React.FC<JobCardProps> = ({
   const primaryColor = (theme as any).primary;
 
   return (
-    <Animated.View style={[styles.cardWrapper, { transform: [{ scale: scaleAnim }] }]}>        
+    <Animated.View style={[styles.cardWrapper, { transform: [{ scale: scaleAnim }] }]}>
       <TouchableOpacity
         activeOpacity={1}
         onPressIn={handlePressIn}
@@ -95,7 +95,7 @@ export const JobCard: React.FC<JobCardProps> = ({
             {job.companyLogo ? (
               <Image source={{ uri: job.companyLogo }} style={styles.logo} resizeMode="contain" />
             ) : (
-              <View style={[styles.logoPlaceholder, { backgroundColor: typeColor + '20' }] }>
+              <View style={[styles.logoPlaceholder, { backgroundColor: typeColor + '20' }]}>
                 <Text style={[styles.logoInitial, { color: typeColor }]}>
                   {job.company?.charAt(0)?.toUpperCase() ?? '?'}
                 </Text>
@@ -111,21 +111,15 @@ export const JobCard: React.FC<JobCardProps> = ({
         {/* Tags */}
         <View style={styles.tagsRow}>
           {job.type && (
-            <View style={[styles.tag, { backgroundColor: typeColor + '18', borderColor: typeColor + '40' }] }>
+            <View style={[styles.tag, { backgroundColor: typeColor + '18', borderColor: typeColor + '40' }]}>
               <View style={[styles.tagDot, { backgroundColor: typeColor }]} />
               <Text style={[styles.tagText, { color: typeColor }]}>{job.type}</Text>
             </View>
           )}
-          {job.location && job.location !== 'Not specified' && (
+          {job.location && (
             <View style={styles.tag}>
               <Ionicons name="location-outline" size={12} color={theme.textSecondary} />
               <Text style={styles.tagTextMuted}>{job.location}</Text>
-            </View>
-          )}
-          {job.workModel && job.workModel !== 'Not specified' && (
-            <View style={styles.tag}>
-              <Ionicons name="share-social-outline" size={12} color={theme.textSecondary} />
-              <Text style={styles.tagTextMuted}>{job.workModel}</Text>
             </View>
           )}
           {job.salary && (
@@ -135,7 +129,7 @@ export const JobCard: React.FC<JobCardProps> = ({
             </View>
           )}
           {isPreferred && (
-            <View style={[styles.tag, { backgroundColor: primaryColor + '18', borderColor: primaryColor + '40' }] }>
+            <View style={[styles.tag, { backgroundColor: primaryColor + '18', borderColor: primaryColor + '40' }]}>
               <Ionicons name="star" size={11} color={primaryColor} />
               <Text style={[styles.tagText, { color: primaryColor }]}>Matches You</Text>
             </View>

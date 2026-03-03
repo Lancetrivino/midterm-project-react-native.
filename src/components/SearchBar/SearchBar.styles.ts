@@ -34,10 +34,8 @@ export const createStyles = (theme: Theme) =>
       padding: 2,
     },
     chipsRow: {
-      flexDirection: 'row',
-      gap: 8,
       marginBottom: 12,
-      flexWrap: 'nowrap',
+      // horizontal container handled by ScrollView
     },
     chip: {
       paddingHorizontal: 14,

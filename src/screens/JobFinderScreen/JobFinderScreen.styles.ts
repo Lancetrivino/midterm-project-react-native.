@@ -14,7 +14,9 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: 24,
       paddingTop: 60,
       paddingBottom: 16,
-      backgroundColor: theme.background,
+      // backgroundColor removed; gradient used in component
+      borderBottomLeftRadius: 24,
+      borderBottomRightRadius: 24,
     },
     headerEyebrow: {
       fontSize: 14,
@@ -38,6 +40,11 @@ export const createStyles = (theme: Theme) =>
       padding: 16,
       borderWidth: 1,
       borderColor: theme.border,
+      shadowColor: theme.shadow,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 3,
     },
     statItem: {
       flex: 1,

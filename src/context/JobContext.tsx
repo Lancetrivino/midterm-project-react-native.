@@ -11,6 +11,7 @@ interface JobContextType {
   removeSavedJob: (jobId: string) => void;
   isJobSaved: (jobId: string) => boolean;
   submitApplication: (application: Omit<Application, 'appliedDate'>) => void;
+  removeApplication: (jobId: string) => void;
   hasApplied: (jobId: string) => boolean;
 }
 
@@ -51,6 +52,10 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
     return applications.some((app) => app.jobId === jobId);
   };
 
+  const removeApplication = (jobId: string) => {
+    setApplications((prev) => prev.filter((app) => app.jobId !== jobId));
+  };
+
   return (
     <JobContext.Provider
       value={{
@@ -62,6 +67,7 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
         removeSavedJob,
         isJobSaved,
         submitApplication,
+        removeApplication,
         hasApplied,
       }}
     >

@@ -1,29 +1,32 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+
+import { ThemeProvider } from './src/context/ThemeContext';
 import { JobProvider } from './src/context/JobContext';
+import { PreferencesProvider, usePreferences } from './src/context/PreferencesContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
+import { OnboardingScreen } from './src/screens/OnboardingScreen/OnboardingScreen';
 
-const AppContent: React.FC = () => {
-  const { isDark } = useTheme();
+const Root: React.FC = () => {
+  const { onboardingCompleted } = usePreferences();
 
-  return (
-    <>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </>
+  return onboardingCompleted ? (
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  ) : (
+    <OnboardingScreen />
   );
 };
 
-export default function App() {
-  return (
-    <ThemeProvider>
+const App: React.FC = () => (
+  <ThemeProvider>
+    <PreferencesProvider>
       <JobProvider>
-        <AppContent />
+        <Root />
       </JobProvider>
-    </ThemeProvider>
-  );
-}
+    </PreferencesProvider>
+  </ThemeProvider>
+);
+
+export default App;
